@@ -1,1 +1,0 @@
-ports.o: ../ports.c
