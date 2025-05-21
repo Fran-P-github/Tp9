@@ -9,22 +9,11 @@ static union{
 } ports;
 
 static int validBitAndPort(port_t port, unsigned bit);
+static int bitChange(port_t port, unsigned bit, int state);
 
 int bitSet(port_t port, unsigned bit){
-	int error = validBitAndPort(port, bit);
-	if(error){
-		return error;
-	}
-
-	if(port == PORT_D){
-		ports.D |= 1<<bit;
-	}else if(port == PORT_A){
-		ports.A_B.A |= 1<<bit;
-	}else{ // port == PORT_B
-		ports.A_B.B |= 1<<bit;
-	}
-
-	return 0;
+	int err = bitChange(port, bit, 1);
+	return err;
 }
 
 int bitGet(port_t port, unsigned bit){
@@ -43,6 +32,33 @@ int bitGet(port_t port, unsigned bit){
 	}
 
 	return rta;
+}
+
+static int bitChange(port_t port, unsigned bit, int state){
+	int error = validBitAndPort(port, bit);
+	if(error){
+		return error;
+	}
+
+	if(state){ // Set bit
+		if(port == PORT_D){
+			ports.D |= 1<<bit;
+		}else if(port == PORT_A){
+			ports.A_B.A |= 1<<bit;
+		}else{ // port == PORT_B
+			ports.A_B.B |= 1<<bit;
+		}
+	}else{ // Clear bit
+		if(port == PORT_D){
+			ports.D ^= 1<<bit;
+		}else if(port == PORT_A){
+			ports.A_B.A ^= 1<<bit;
+		}else{ // port == PORT_B
+			ports.A_B.B ^= 1<<bit;
+		}
+	}
+
+	return 0;
 }
 
 static int validBitAndPort(port_t port, unsigned bit){
