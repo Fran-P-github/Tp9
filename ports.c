@@ -16,6 +16,16 @@ int bitSet(port_t port, unsigned bit){
 	return err;
 }
 
+int bitClr(port_t port, unsigned bit){
+	int err = bitChange(port, bit, 0);
+	return err;
+}
+
+int bitToggle(port_t port, unsigned bit){
+	int err = bitChange(port, bit, !bitGet(port, bit));
+	return err;
+}
+
 int bitGet(port_t port, unsigned bit){
 	int error = validBitAndPort(port, bit);
 	if(error){
