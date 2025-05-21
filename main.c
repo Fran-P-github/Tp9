@@ -1,7 +1,7 @@
 #include"ports.h"
-
+#include <stdio.h>
 int main(){
 
-	printf("Modificado por Fran\n");
+	printf("Modificado por Juani\n");
 	return 0;
 }
