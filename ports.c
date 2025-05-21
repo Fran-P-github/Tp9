@@ -27,6 +27,24 @@ int bitSet(port_t port, unsigned bit){
 	return 0;
 }
 
+int bitGet(port_t port, unsigned bit){
+	int error = validBitAndPort(port, bit);
+	if(error){
+		return error;
+	}
+
+	int rta;
+	if(port == PORT_D){
+		rta = ( ports.D>>bit ) & 1;
+	}else if(port == PORT_A){
+		rta = ( ports.A_B.A>>bit ) & 1;
+	}else{ // port == PORT_B
+		rta = ( ports.A_B.B>>bit ) & 1;
+	}
+
+	return rta;
+}
+
 static int validBitAndPort(port_t port, unsigned bit){
 	if(bit >= 16){
 		return ERR_INVALID_BIT;
