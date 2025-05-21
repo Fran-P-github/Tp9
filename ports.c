@@ -45,9 +45,9 @@ int bitGet(port_t port, unsigned bit){
 }
 
 static int bitChange(port_t port, unsigned bit, int state){
-	int error = validBitAndPort(port, bit);
-	if(error){
-		return error;
+	int err = validBitAndPort(port, bit);
+	if(err){
+		return err;
 	}
 
 	if(state){ // Set bit
@@ -60,11 +60,11 @@ static int bitChange(port_t port, unsigned bit, int state){
 		}
 	}else{ // Clear bit
 		if(port == PORT_D){
-			ports.D ^= 1<<bit;
+			ports.D &= ~(1<<bit);
 		}else if(port == PORT_A){
-			ports.A_B.A ^= 1<<bit;
+			ports.A_B.A &= ~(1<<bit);
 		}else{ // port == PORT_B
-			ports.A_B.B ^= 1<<bit;
+			ports.A_B.B &= ~(1<<bit);
 		}
 	}
 
