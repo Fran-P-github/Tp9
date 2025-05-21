@@ -1,8 +1,7 @@
-/*
- * main.c
- *
- *  Created on: May 21, 2025
- *      Author: itai
- */
+#include"ports.h"
+
+int main(){
 
 
+	return 0;
+}
