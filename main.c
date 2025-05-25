@@ -57,18 +57,18 @@ void printLEDs(){
 
 char leerEntrada(){
 	char c;
-	char nextChar;
-	// Se obtiene el caracter actual (mientras que no sea un '\n') y el siguiente.
+	char nextChar = '\n'; // Inicializado así para contemplar caso en que la entrada es "\n"
+	// Se obtiene el caracter actual y el siguiente (mientras que el primero no sea un '\n')
 	if((c = getchar()) != '\n'){
 		nextChar = getchar();
 	}
 	else{
-		c = 0;
+		c = 0; // Invalida
 	}
 	// Si el siguiente caracter no es una nueva linea, la entrada no es valida.
 	while(nextChar != '\n'){
 		nextChar = getchar();
-		c = 0;
+		c = 0; // Invalida
 	}
 	return c;
 }
