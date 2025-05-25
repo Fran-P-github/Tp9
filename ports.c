@@ -18,7 +18,7 @@ static int bitChange(port_t port, unsigned bit, int state);
 
 // Devuelve mascara a usar para el puerto especificado:
 // *Si es el puerto D, la mascara no cambia
-// *Si es el puerto A o B, la mascara conserva el byte correspondiente al puerto, y el resto queda en cero
+// *Si es el puerto A o B, la mascara conserva el byte correspondiente al puerto, moviendolo al LSB de la mascara, y el resto queda en cero
 // No chequea errores (asume puerto valido)
 static mask_t newMask(port_t port, mask_t mask);
 
@@ -42,7 +42,6 @@ int bitToggle(port_t port, unsigned bit){
 	return err;
 }
 
-// Devuelve 0 o 1, segun estado del bit pedido. Si hay error, devuelve algo mayor a 1 (ver BITS DE ERROR)
 int bitGet(port_t port, unsigned bit){
 	int error = validBitAndPort(port, bit);
 	if(error){
@@ -98,8 +97,8 @@ int maskToggle(port_t port, mask_t mask){
 
 static mask_t newMask(port_t port, mask_t mask){
 	if(port != PORT_D){ // Hay que ignorar uno de los bytes
-		mask = (port==PORT_B) ? (mask >> 8) : // B usa el LSB
-					(mask << 8);  // A usa el MSB
+		mask = (port==PORT_B) ? (mask & 0x00FF) : 	// B usa el LSB
+								(mask << 8);  		// A usa el MSB
 	}
 	// else: si port==PORT_D la mascara no cambia
 

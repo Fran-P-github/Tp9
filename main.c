@@ -7,7 +7,7 @@
 // *s: set bits port A
 // *c: clear bits port A
 // *q: salir del programa
-// 0-7: bit de port A a setear
+// *0-7: bit de port A a setear
 // default: ninguna operacion
 char leerEntrada();
 
@@ -19,16 +19,17 @@ int main(){
 	printLEDs();
 
 	char entrada;
-	while( (entrada = leerEntrada()) != 'q' ){
-		switch(entrada){
+	while( (entrada = leerEntrada()) != 'q' ){ // Al ingrear "q\n" e sale del programa
+		switch(entrada){ // Cada letra hace otra operacion
 		case 't': 	maskToggle(PORT_A, 0xFF);	printf("Alternando LEDs...\n");		break;
 		case 'c': 	maskOff(PORT_A, 0xFF);		printf("Apagando LEDs...\n");		break;
 		case 's': 	maskOn(PORT_A, 0xFF);		printf("Prendiendo LEDs...\n");		break;
 		default:
-			if(entrada>='0' && entrada<='7'){
+			if(entrada>='0' && entrada<='7'){ // Un numero del 0 al 7 indica que bit prender
 				unsigned bitToSet = entrada - '0';
+				printf("Encendiendo LED %d...\n", bitToSet);
 				bitSet(PORT_A, bitToSet);
-			}else{
+			}else{ // entrada==0 es entrada invalida. Cualquier otra cosa no es una operacion
 				printf("Entrada invalida u operacion no existente\n");
 			}
 			break;
