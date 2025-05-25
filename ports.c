@@ -58,7 +58,6 @@ int bitGet(port_t port, unsigned bit){
 	}else{ // port == PORT_B
 		rta = ( ports.A_B.B>>bit ) & 1;
 	}
-	rta = rta ? 1 : 0; // Se verifica que rta tenga un valor de 1 o 0 y no el valor resultante de la operacion.
 	return rta;
 }
 
@@ -99,8 +98,8 @@ int maskToggle(port_t port, mask_t mask){
 
 static mask_t newMask(port_t port, mask_t mask){
 	if(port != PORT_D){ // Hay que ignorar uno de los bytes
-		mask = (port==PORT_B) ? (mask & 0x00FF) : // B usa el LSB
-					(mask & 0xFF00);  // A usa el MSB
+		mask = (port==PORT_B) ? (mask >> 8) : // B usa el LSB
+					(mask << 8);  // A usa el MSB
 	}
 	// else: si port==PORT_D la mascara no cambia
 

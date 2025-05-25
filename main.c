@@ -12,9 +12,9 @@ int main(){
 	char entrada;
 	while( (entrada = leerEntrada()) != 'q' ){
 		switch(entrada){
-		case 't': 	maskToggle(PORT_A, 0xFFFF);	printf("Alternando LEDs...\n");		break;
-		case 'c': 	maskOff(PORT_A, 0xFFFF);	printf("Apagando LEDs...\n");		break;
-		case 's': 	maskOn(PORT_A, 0xFFFF);		printf("Prendiendo LEDs...\n");		break;
+		case 't': 	maskToggle(PORT_A, 0xFF);	printf("Alternando LEDs...\n");		break;
+		case 'c': 	maskOff(PORT_A, 0xFF);		printf("Apagando LEDs...\n");		break;
+		case 's': 	maskOn(PORT_A, 0xFF);		printf("Prendiendo LEDs...\n");		break;
 		default:
 			if(entrada>='0' && entrada<='7'){
 				unsigned bitToSet = entrada - '0';
