@@ -1,8 +1,17 @@
 #include"ports.h"
 #include <stdio.h>
 
-char leerEntrada(void);
+// Lectura de la entrada. Entrada esperada "x\n", con x un caracter
+// Devuelve 0 si la entrada no es valida, si no devuelve el caracter x, correspondiente a la operacion a realizar, segun lo siguiente:
+// *t: toggle bits port A
+// *s: set bits port A
+// *c: clear bits port A
+// *q: salir del programa
+// 0-7: bit de port A a setear
+// default: ninguna operacion
+char leerEntrada();
 
+// Imprime el estado del port A
 void printLEDs();
 
 int main(){
@@ -20,7 +29,7 @@ int main(){
 				unsigned bitToSet = entrada - '0';
 				bitSet(PORT_A, bitToSet);
 			}else{
-				printf("Entrada invalida\n");
+				printf("Entrada invalida u operacion no existente\n");
 			}
 			break;
 		}
@@ -46,8 +55,7 @@ void printLEDs(){
 	putchar('\n');
 }
 
-// Devuelve 0 si entrada no es valida, sino devuelve el caracter c
-char leerEntrada(void){
+char leerEntrada(){
 	char c;
 	char nextChar;
 	// Se obtiene el caracter actual (mientras que no sea un '\n') y el siguiente.
