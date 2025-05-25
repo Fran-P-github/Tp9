@@ -8,5 +8,4 @@ TP9 Ej 5/6
 ├── src/
 │ ├── puertos.c # Implementación de la librería de puertos
 │ └── main.c # Programa principal de simulación
-├── README.md
-└── Makefile (opcional)
+├── Makefile (opcional)
